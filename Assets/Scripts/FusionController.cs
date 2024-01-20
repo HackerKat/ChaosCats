@@ -7,10 +7,11 @@ using UnityEngine.UI;
 public class FusionController : MonoBehaviour
 {
     public float startDelay = 1.0f; // Time before the first call
-    public int interval = 20;   // Interval between calls
     public float Speed = 10;
     public GameObject FusionAnimation;
     public Slider Slider;
+
+    public AudioSource MainAudio;
 
     private float passedTime;
 
@@ -82,6 +83,7 @@ public class FusionController : MonoBehaviour
         }
         FusionAnimation.SetActive(true);
         GetComponent<AudioSource>().Play();
+        MainAudio.Stop();
         FusionAnimation.transform.position = allChars[0].transform.position;
         await Task.Delay(1100);
         FusionAnimation.SetActive(false);

@@ -11,9 +11,23 @@ public class ReticleController : MonoBehaviour
         Destroy(gameObject, Delay);
     }
 
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log(collision, gameObject);
+
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Obstale"))
+        Debug.Log(collision, gameObject);
+        if (collision.gameObject.CompareTag("Obstacle"))
         {
             Destroy(collision.gameObject);
             Destroy(gameObject);
