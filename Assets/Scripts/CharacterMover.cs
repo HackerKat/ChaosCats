@@ -58,16 +58,19 @@ public class CharacterMover : MonoBehaviour
 
     private void FollowerOtherPlayer()
     {
-        bool otherIsHigher = otherPlayer.position.y > transform.position.y;
-        if (!otherIsHigher) return;
-
-        float yDistance = Mathf.Abs(otherPlayer.position.y - transform.position.y);
-
-        if (yDistance > MaxDistanceToOther)
+        if (otherPlayer)
         {
-            float newYPosition = Mathf.MoveTowards(transform.position.y, otherPlayer.position.y, Speed * Time.deltaTime);
-            Vector3 newPosition = new Vector3(transform.position.x, newYPosition, transform.position.z);
-            transform.position = newPosition;
+            bool otherIsHigher = otherPlayer.position.y > transform.position.y;
+            if (!otherIsHigher) return;
+
+            float yDistance = Mathf.Abs(otherPlayer.position.y - transform.position.y);
+
+            if (yDistance > MaxDistanceToOther)
+            {
+                float newYPosition = Mathf.MoveTowards(transform.position.y, otherPlayer.position.y, Speed * Time.deltaTime);
+                Vector3 newPosition = new Vector3(transform.position.x, newYPosition, transform.position.z);
+                transform.position = newPosition;
+            }
         }
     }
 
