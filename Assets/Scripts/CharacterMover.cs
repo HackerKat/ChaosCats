@@ -9,7 +9,7 @@ public class CharacterMover : MonoBehaviour
     public float Speed = 2;
     public float MaxDistanceToOther = 5;
 
-    public static bool Fusioned;
+    public bool Fusioned;
 
     private Vector3 move1;
     private Vector3 move2;
@@ -18,7 +18,8 @@ public class CharacterMover : MonoBehaviour
 
     private void Start()
     {
-        otherPlayer = FirstPlayer ? ReferenceSingleton.Instance.Player2 : ReferenceSingleton.Instance.Player1;
+        if (ReferenceSingleton.Instance.Player2 && ReferenceSingleton.Instance.Player1)
+            otherPlayer = FirstPlayer ? ReferenceSingleton.Instance.Player2 : ReferenceSingleton.Instance.Player1;
     }
 
     private void OnMove(InputValue moveVal)
@@ -27,6 +28,9 @@ public class CharacterMover : MonoBehaviour
 
         move1.x = movement.x;
         move1.y = movement.y;
+
+        if (Fusioned)
+            Shoot(movement);
     }
 
     private void OnMove2(InputValue moveVal)
@@ -39,16 +43,17 @@ public class CharacterMover : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(Fusioned && FirstPlayer)
+        FollowerOtherPlayer();
+
+        if (Fusioned && FirstPlayer)
         {
-            Shoot();
             return;
         }
 
         Vector3 movement = FirstPlayer ? move1 : move2;
         transform.position += Speed * Time.fixedDeltaTime * movement;
 
-        FollowerOtherPlayer();
+
     }
 
     private void FollowerOtherPlayer()
@@ -57,18 +62,20 @@ public class CharacterMover : MonoBehaviour
         if (!otherIsHigher) return;
 
         float yDistance = Mathf.Abs(otherPlayer.position.y - transform.position.y);
-        
+
         if (yDistance > MaxDistanceToOther)
         {
             float newYPosition = Mathf.MoveTowards(transform.position.y, otherPlayer.position.y, Speed * Time.deltaTime);
             Vector3 newPosition = new Vector3(transform.position.x, newYPosition, transform.position.z);
             transform.position = newPosition;
-            Debug.Log(newYPosition, gameObject);
         }
     }
 
-    private void Shoot()
+    private void Shoot(Vector2 shootDirection)
     {
+        GameObject reticle = Instantiate(ReferenceSingleton.Instance.Reticle, transform.position, Quaternion.identity).gameObject;
+        Rigidbody2D rb = reticle.GetComponent<Rigidbody2D>();
 
+        rb.AddForce(shootDirection.normalized * 10, ForceMode2D.Impulse);
     }
 }
