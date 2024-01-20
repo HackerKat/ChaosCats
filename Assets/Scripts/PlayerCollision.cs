@@ -16,7 +16,15 @@ public class PlayerCollision : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.gameObject.tag == "Obstacle")
+        if(collider.gameObject.tag == "Obstacle" )
+        {
+            ReferenceSingleton.Instance.ChangeTime(5);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Obstacle")
         {
             ReferenceSingleton.Instance.ChangeTime(5);
         }
