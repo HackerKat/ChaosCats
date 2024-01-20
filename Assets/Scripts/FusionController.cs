@@ -17,8 +17,6 @@ public class FusionController : MonoBehaviour
     private async void Start()
     {
         FusionAnimation.SetActive(false);
-        await Task.Delay(interval * 1000);
-        RepeatAction();
     }
 
     private void FixedUpdate()
