@@ -81,6 +81,6 @@ public class CharacterMover : MonoBehaviour
         GameObject reticle = Instantiate(ReferenceSingleton.Instance.Reticle, transform.position, Quaternion.identity).gameObject;
         Rigidbody2D rb = reticle.GetComponent<Rigidbody2D>();
 
-        rb.AddForce(shootDirection.normalized * 10, ForceMode2D.Impulse);
+        rb.AddForce(shootDirection.normalized * 20, ForceMode2D.Impulse);
     }
 }
