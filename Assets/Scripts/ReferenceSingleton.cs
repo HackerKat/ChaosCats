@@ -8,4 +8,5 @@ public class ReferenceSingleton : Singleton<ReferenceSingleton>
     public Transform Player2;
     public Transform Background;
     public Transform Reticle;
+    public bool Fusioned;
 }

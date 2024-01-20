@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,8 +6,6 @@ public class CharacterMover : MonoBehaviour
     public bool FirstPlayer = true;
     public float Speed = 2;
     public float MaxDistanceToOther = 5;
-
-    public bool Fusioned;
 
     private Vector3 move1;
     private Vector3 move2;
@@ -24,21 +20,36 @@ public class CharacterMover : MonoBehaviour
 
     private void OnMove(InputValue moveVal)
     {
+        if (!FirstPlayer) return;
+
         Vector2 movement = moveVal.Get<Vector2>();
 
-        move1.x = movement.x;
-        move1.y = movement.y;
-
-        if (Fusioned)
+        if (ReferenceSingleton.Instance.Fusioned)
+        {
             Shoot(movement);
+        }
+        else
+        {
+            move1.x = movement.x;
+            move1.y = movement.y;
+        }
     }
 
     private void OnMove2(InputValue moveVal)
     {
+        Debug.Log(FirstPlayer + " " + ReferenceSingleton.Instance.Fusioned, gameObject);
         Vector2 movement = moveVal.Get<Vector2>();
 
-        move2.x = movement.x;
-        move2.y = movement.y;
+        if (!FirstPlayer)
+        {
+            move2.x = movement.x;
+            move2.y = movement.y;
+        }
+        if (ReferenceSingleton.Instance.Fusioned)
+        {
+            move1.x = movement.x;
+            move1.y = movement.y;
+        }
     }
 
     private void FixedUpdate()
@@ -46,15 +57,8 @@ public class CharacterMover : MonoBehaviour
         if (otherPlayer)
             FollowerOtherPlayer();
 
-        if (Fusioned && FirstPlayer)
-        {
-            return;
-        }
-
         Vector3 movement = FirstPlayer ? move1 : move2;
         transform.position += Speed * Time.fixedDeltaTime * movement;
-
-
     }
 
     private void FollowerOtherPlayer()
@@ -70,7 +74,6 @@ public class CharacterMover : MonoBehaviour
             Vector3 newPosition = new Vector3(transform.position.x, newYPosition, transform.position.z);
             transform.position = newPosition;
         }
-
     }
 
     private void Shoot(Vector2 shootDirection)
