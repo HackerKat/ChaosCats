@@ -17,8 +17,6 @@ public class ReturnController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision);
-
         if (!collision.TryGetComponent(out CharacterMover mover))
             return;
 

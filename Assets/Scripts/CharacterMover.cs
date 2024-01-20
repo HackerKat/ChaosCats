@@ -37,7 +37,6 @@ public class CharacterMover : MonoBehaviour
 
     private void OnMove2(InputValue moveVal)
     {
-        Debug.Log(FirstPlayer + " " + ReferenceSingleton.Instance.Fusioned, gameObject);
         Vector2 movement = moveVal.Get<Vector2>();
 
         if (!FirstPlayer)

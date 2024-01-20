@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FusionController : MonoBehaviour
 {
@@ -9,12 +10,27 @@ public class FusionController : MonoBehaviour
     public int interval = 20;   // Interval between calls
     public float Speed = 10;
     public GameObject FusionAnimation;
+    public Slider Slider;
+
+    private float passedTime;
 
     private async void Start()
     {
         FusionAnimation.SetActive(false);
         await Task.Delay(interval * 1000);
         RepeatAction();
+    }
+
+    private void FixedUpdate()
+    {
+        passedTime += Time.fixedDeltaTime;
+        if(passedTime > ReferenceSingleton.Instance.FusionTimer)
+        {
+            RepeatAction();
+            ReferenceSingleton.Instance.FusionTimer = float.PositiveInfinity;
+        }
+
+        Slider.value = passedTime / ReferenceSingleton.Instance.FusionTimer;
     }
 
     void RepeatAction()
