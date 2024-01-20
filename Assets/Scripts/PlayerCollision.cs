@@ -18,7 +18,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if(collider.gameObject.tag == "Obstacle")
         {
-            Debug.Log("collided");
+            ReferenceSingleton.Instance.ChangeTime(5);
         }
     }
 }
