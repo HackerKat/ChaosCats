@@ -25,10 +25,10 @@ public class ReturnController : MonoBehaviour
         background.eulerAngles += new Vector3(0, 180, 180);
 
         Vector3 currentPosition = player1.position;
-        currentPosition.y = 23;
+        currentPosition.y -= 13.8f;
         player1.position = currentPosition;
         currentPosition = player2.position;
-        currentPosition.y = 23;
+        currentPosition.y -= 13.8f;
         player2.position = currentPosition;
     }
 }
