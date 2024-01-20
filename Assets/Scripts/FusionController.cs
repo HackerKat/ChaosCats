@@ -81,6 +81,7 @@ public class FusionController : MonoBehaviour
             }
         }
         FusionAnimation.SetActive(true);
+        GetComponent<AudioSource>().Play();
         FusionAnimation.transform.position = allChars[0].transform.position;
         await Task.Delay(1100);
         FusionAnimation.SetActive(false);
