@@ -9,6 +9,8 @@ public class CharacterMover : MonoBehaviour
     public float Speed = 2;
     public float MaxDistanceToOther = 5;
 
+    public static bool Fusioned;
+
     private Vector3 move1;
     private Vector3 move2;
 
@@ -37,6 +39,12 @@ public class CharacterMover : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(Fusioned && FirstPlayer)
+        {
+            Shoot();
+            return;
+        }
+
         Vector3 movement = FirstPlayer ? move1 : move2;
         transform.position += Speed * Time.fixedDeltaTime * movement;
 
@@ -57,5 +65,10 @@ public class CharacterMover : MonoBehaviour
             transform.position = newPosition;
             Debug.Log(newYPosition, gameObject);
         }
+    }
+
+    private void Shoot()
+    {
+
     }
 }
