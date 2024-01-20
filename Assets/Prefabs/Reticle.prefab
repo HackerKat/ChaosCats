@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6759792838687504912}
   - component: {fileID: 3289193584323015349}
   - component: {fileID: -4302423939064340988}
+  - component: {fileID: -3535801056929847384}
   m_Layer: 0
   m_Name: Reticle
   m_TagString: Untagged
@@ -148,3 +149,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-3535801056929847384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6110923976746396543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4931d0fd1c3bf2429e75081d628c9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Delay: 3
