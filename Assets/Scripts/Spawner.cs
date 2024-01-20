@@ -34,10 +34,13 @@ public class Spawner : MonoBehaviour
 
                 Vector3 randomPos = new Vector3(startPosition.position.x + Random.Range(1f, 20f), startPosition.position.y, 0f);
                 float randomZRotation = Random.Range(0f, 360f);
-                Quaternion randomRot =Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, randomZRotation);
+                Quaternion randomRot = Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, randomZRotation);
 
-
-                Instantiate(obstacleType[r], randomPos, randomRot, this.transform);
+                GameObject newObj = Instantiate(obstacleType[r], randomPos, randomRot, this.transform); ;
+                float randomSize = Random.Range(0.5f, 1.2f);
+                newObj.transform.localScale = new Vector3(newObj.transform.localScale.x * randomSize,
+                    newObj.transform.localScale.y * randomSize,
+                    0);
 
                 spawnedObjects++;
             }
