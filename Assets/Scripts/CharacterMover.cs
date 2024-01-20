@@ -43,7 +43,8 @@ public class CharacterMover : MonoBehaviour
 
     private void FixedUpdate()
     {
-        FollowerOtherPlayer();
+        if (otherPlayer)
+            FollowerOtherPlayer();
 
         if (Fusioned && FirstPlayer)
         {
@@ -58,20 +59,18 @@ public class CharacterMover : MonoBehaviour
 
     private void FollowerOtherPlayer()
     {
-        if (otherPlayer)
+        bool otherIsHigher = otherPlayer.position.y > transform.position.y;
+        if (!otherIsHigher) return;
+
+        float yDistance = Mathf.Abs(otherPlayer.position.y - transform.position.y);
+
+        if (yDistance > MaxDistanceToOther)
         {
-            bool otherIsHigher = otherPlayer.position.y > transform.position.y;
-            if (!otherIsHigher) return;
-
-            float yDistance = Mathf.Abs(otherPlayer.position.y - transform.position.y);
-
-            if (yDistance > MaxDistanceToOther)
-            {
-                float newYPosition = Mathf.MoveTowards(transform.position.y, otherPlayer.position.y, Speed * Time.deltaTime);
-                Vector3 newPosition = new Vector3(transform.position.x, newYPosition, transform.position.z);
-                transform.position = newPosition;
-            }
+            float newYPosition = Mathf.MoveTowards(transform.position.y, otherPlayer.position.y, Speed * Time.deltaTime);
+            Vector3 newPosition = new Vector3(transform.position.x, newYPosition, transform.position.z);
+            transform.position = newPosition;
         }
+
     }
 
     private void Shoot(Vector2 shootDirection)
