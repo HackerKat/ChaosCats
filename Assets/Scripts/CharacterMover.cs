@@ -45,17 +45,17 @@ public class CharacterMover : MonoBehaviour
 
     private void FollowerOtherPlayer()
     {
+        bool otherIsHigher = otherPlayer.position.y > transform.position.y;
+        if (!otherIsHigher) return;
+
         float yDistance = Mathf.Abs(otherPlayer.position.y - transform.position.y);
         
         if (yDistance > MaxDistanceToOther)
         {
-            Debug.Log(yDistance);
-            // Calculate the direction to move
-            Vector3 moveDirection = (otherPlayer.position - transform.position).normalized;
-            moveDirection.y = 0; // Restrict movement to the Y-axis
-
-            // Move the object towards the higher object
-            transform.position += moveDirection * Speed * Time.deltaTime;
+            float newYPosition = Mathf.MoveTowards(transform.position.y, otherPlayer.position.y, Speed * Time.deltaTime);
+            Vector3 newPosition = new Vector3(transform.position.x, newYPosition, transform.position.z);
+            transform.position = newPosition;
+            Debug.Log(newYPosition, gameObject);
         }
     }
 }
