@@ -19,13 +19,16 @@ public class ReturnController : MonoBehaviour
     {
         Debug.Log(collision);
 
+        if (!collision.TryGetComponent(out CharacterMover mover))
+            return;
+
         background.eulerAngles += new Vector3(0, 180, 180);
 
         Vector3 currentPosition = player1.position;
-        currentPosition.y = 0;
+        currentPosition.y -= 13.8f;
         player1.position = currentPosition;
         currentPosition = player2.position;
-        currentPosition.y = 0;
+        currentPosition.y -= 13.8f;
         player2.position = currentPosition;
     }
 }
